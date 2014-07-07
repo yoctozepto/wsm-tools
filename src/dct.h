@@ -1,0 +1,10 @@
+extern bool is_mode_symbol(char*);
+extern bool is_attribute_symbol(char*);
+extern bool is_functor_symbol(char*);
+extern bool is_predicate_symbol(char*);
+extern bool is_structure_symbol(char*);
+extern bool is_selector_symbol(char*);
+extern bool is_article_name(char*);
+extern bool is_left_functor_bracket_symbol(char*);
+extern bool is_right_functor_bracket_symbol(char*);
+extern bool is_numeral(char*);
