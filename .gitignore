@@ -1,0 +1,3 @@
+/bin/
+/src/*.lex.c
+/src/*.tab.[ch]
