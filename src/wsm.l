@@ -6,7 +6,7 @@
 %option noyywrap nounput noinput nodefault yylineno
 
 %%
-[ \n\t]+ ;
+[[:space:]] ; // ignore whitespace
 
 "begin" { return BEGIN_; }
 "end" { return END; }
@@ -138,7 +138,7 @@
 
 ^::.*$ ; // ignore pragmas
 
-[^ \n\t]+ {
+[[:^space:]]+ {
     yylval.sval = strdup(yytext);
 
     if (is_mode_symbol(yylval.sval)) {
