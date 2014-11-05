@@ -6,23 +6,25 @@
 using std::unordered_set;
 using std::string;
 
+#include "events.h"
+
 extern unordered_set<string> article_names;
 
-unordered_set<string> articles_unused;
+static unordered_set<string> articles_unused;
 
-void markArticleAsUsed(char* articleName) {
-    articles_unused.erase(string(articleName));
+void markArticleAsUsed(const string &articleName) {
+    articles_unused.erase(articleName);
 }
 
-void eventLibraryDefinitionReferenced(char* articleName, unsigned long) {
+void eventLibraryDefinitionReferenced(const string &articleName, unsigned long) {
     markArticleAsUsed(articleName);
 }
 
-void eventLibraryTheoremReferenced(char* articleName, unsigned long) {
+void eventLibraryTheoremReferenced(const string &articleName, unsigned long) {
     markArticleAsUsed(articleName);
 }
 
-void eventLibrarySchemeReferenced(char* articleName, unsigned long) {
+void eventLibrarySchemeReferenced(const string &articleName, unsigned long) {
     markArticleAsUsed(articleName);
 }
 

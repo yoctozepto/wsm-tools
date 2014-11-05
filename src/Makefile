@@ -1,10 +1,10 @@
 wsm-parser: wsm.lex.c wsm.tab.c main.cpp dct.cpp parser.cpp
 	mkdir -p ../bin
-	g++ -o ../bin/$@ -O3 -Wall -Wextra -pedantic -std=gnu++11 wsm.lex.c wsm.tab.c main.cpp dct.cpp parser.cpp
+	g++ -o ../bin/$@ -O3 -Wall -Wextra -pedantic -std=c++11 wsm.lex.c wsm.tab.c main.cpp dct.cpp parser.cpp
 
 wsm-irrths: wsm.lex.c wsm.tab.c main.cpp dct.cpp irrths.cpp
 	mkdir -p ../bin
-	g++ -o ../bin/$@ -O3 -Wall -Wextra -pedantic -std=gnu++11 wsm.lex.c wsm.tab.c main.cpp dct.cpp irrths.cpp
+	g++ -o ../bin/$@ -O3 -Wall -Wextra -pedantic -std=c++11 wsm.lex.c wsm.tab.c main.cpp dct.cpp irrths.cpp
 
 wsm.lex.c: wsm.l
 	flex -o wsm.lex.c wsm.l

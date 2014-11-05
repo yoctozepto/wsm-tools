@@ -1,5 +1,8 @@
 %{
-#include <stdio.h>
+#include <string>
+
+using std::string;
+
 #include "events.h"
 void yyerror(const char *s);
 extern int yylex(void);
@@ -9,7 +12,7 @@ extern int yylineno;
 %union
 {
     unsigned long ival;
-    char *sval;
+    string *sval;
 }
 
 %define parse.error verbose
@@ -1048,17 +1051,17 @@ library_reference:
 
 definition_reference:
     ARTICLE_NAME[article] COLON DEF NUMERAL[number]
-        { eventLibraryDefinitionReferenced($article, $number); }
+        { eventLibraryDefinitionReferenced(*$article, $number); }
     ;
 
 theorem_reference:
     ARTICLE_NAME[article] COLON NUMERAL[number]
-        { eventLibraryTheoremReferenced($article, $number); }
+        { eventLibraryTheoremReferenced(*$article, $number); }
     ;
 
 library_scheme_reference:
     ARTICLE_NAME[article] COLON SCH NUMERAL[number]
-        { eventLibrarySchemeReferenced($article, $number); }
+        { eventLibrarySchemeReferenced(*$article, $number); }
     ;
 
 conditions:

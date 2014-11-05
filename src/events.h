@@ -1,3 +1,7 @@
-void eventLibraryDefinitionReferenced(char*, unsigned long);
-void eventLibraryTheoremReferenced(char*, unsigned long);
-void eventLibrarySchemeReferenced(char*, unsigned long);
+#include <string>
+
+using std::string;
+
+void eventLibraryDefinitionReferenced(const string &, unsigned long);
+void eventLibraryTheoremReferenced(const string &, unsigned long);
+void eventLibrarySchemeReferenced(const string &, unsigned long);

@@ -1,9 +1,12 @@
 %{
+#include <string>
+using std::string;
+
 #include "dct.h"
 #include "wsm.tab.h"
 %}
 
-%option noyywrap nounput noinput nodefault yylineno
+%option noyywrap nounput noinput nodefault yylineno nounistd never-interactive batch full noread align
 
 %%
 [[:space:]] ; // ignore whitespace
@@ -139,46 +142,52 @@
 ^::.*$ ; // ignore pragmas
 
 [[:^space:]]+ {
-    yylval.sval = strdup(yytext);
-
-    if (is_mode_symbol(yylval.sval)) {
+    if (is_mode_symbol(yytext)) {
+        yylval.sval = new string(yytext);
         return MODE_SYMBOL;
     }
 
-    if (is_attribute_symbol(yylval.sval)) {
+    if (is_attribute_symbol(yytext)) {
+        yylval.sval = new string(yytext);
         return ATTRIBUTE_SYMBOL;
     }
 
-    if (is_structure_symbol(yylval.sval)) {
+    if (is_structure_symbol(yytext)) {
+        yylval.sval = new string(yytext);
         return STRUCTURE_SYMBOL;
     }
 
-    if (is_selector_symbol(yylval.sval)) {
+    if (is_selector_symbol(yytext)) {
+        yylval.sval = new string(yytext);
         return SELECTOR_SYMBOL;
     }
 
-    if (is_predicate_symbol(yylval.sval)) {
+    if (is_predicate_symbol(yytext)) {
+        yylval.sval = new string(yytext);
         return PREDICATE_SYMBOL;
     }
 
-    if (is_functor_symbol(yylval.sval)) {
+    if (is_functor_symbol(yytext)) {
+        yylval.sval = new string(yytext);
         return FUNCTOR_SYMBOL;
     }
 
-    if (is_left_functor_bracket_symbol(yylval.sval)) {
+    if (is_left_functor_bracket_symbol(yytext)) {
+        yylval.sval = new string(yytext);
         return LEFT_FUNCTOR_BRACKET_SYMBOL;
     }
 
-    if (is_right_functor_bracket_symbol(yylval.sval)) {
+    if (is_right_functor_bracket_symbol(yytext)) {
+        yylval.sval = new string(yytext);
         return RIGHT_FUNCTOR_BRACKET_SYMBOL;
     }
 
-    if (is_article_name(yylval.sval)) {
+    if (is_article_name(yytext)) {
+        yylval.sval = new string(yytext);
         return ARTICLE_NAME;
     }
 
-    if (is_numeral(yylval.sval)) {
-        free(yylval.sval);
+    if (is_numeral(yytext)) {
         yylval.ival = strtoul(yytext, NULL, 10);
         return NUMERAL;
     }

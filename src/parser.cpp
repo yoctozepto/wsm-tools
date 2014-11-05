@@ -1,8 +1,10 @@
-void eventLibraryDefinitionReferenced(char*, unsigned long) {}
+#include "events.h"
 
-void eventLibraryTheoremReferenced(char*, unsigned long) {}
+void eventLibraryDefinitionReferenced(const string &, unsigned long) {}
 
-void eventLibrarySchemeReferenced(char*, unsigned long) {}
+void eventLibraryTheoremReferenced(const string &, unsigned long) {}
+
+void eventLibrarySchemeReferenced(const string &, unsigned long) {}
 
 extern int yyparse(void);
 
