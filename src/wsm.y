@@ -1180,8 +1180,8 @@ type_expression:
     ;
 
 structure_type_expression:
-    adjective_cluster structure_symbol
-    | adjective_cluster OPEN_PAREN structure_symbol OVER term_expression_list CLOSE_PAREN
+    structure_symbol
+    | OPEN_PAREN structure_symbol OVER term_expression_list CLOSE_PAREN
     ;
 
 radix_type:
