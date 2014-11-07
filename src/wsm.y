@@ -1171,19 +1171,22 @@ being_or_be:
     ;
 
 type_expression:
-    radix_type
-    | adjective_list radix_type
+    radix_type_expression
+    | adjective_list radix_type_expression
+    ;
+
+radix_type_expression:
+    mode_type_expression
+    | structure_type_expression
+    ;
+
+mode_type_expression:
+    mode_symbol
+    | OPEN_PAREN mode_symbol OF term_expression_list CLOSE_PAREN
     ;
 
 structure_type_expression:
     structure_symbol
-    | OPEN_PAREN structure_symbol OVER term_expression_list CLOSE_PAREN
-    ;
-
-radix_type:
-    mode_symbol
-    | OPEN_PAREN mode_symbol OF term_expression_list CLOSE_PAREN
-    | structure_symbol
     | OPEN_PAREN structure_symbol OVER term_expression_list CLOSE_PAREN
     ;
 
