@@ -199,16 +199,12 @@ reservation:
     ;
 
 reservation_segment:
-    reserved_identifiers FOR type_expression
+    identifiers FOR type_expression
     ;
 
 reservation_segments:
     reservation_segment
     | reservation_segment COMMA reservation_segments
-    ;
-
-reserved_identifiers:
-    identifiers
     ;
 
 identifiers:
