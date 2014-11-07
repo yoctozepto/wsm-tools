@@ -628,10 +628,8 @@ adjective_cluster:
     ;
 
 adjective:
-    attribute_symbol
-    | NON attribute_symbol
-    | adjective_arguments attribute_symbol
-    | NON adjective_arguments attribute_symbol
+    maybe_arguments attribute_symbol
+    | NON maybe_arguments attribute_symbol
     ;
 
 conditional_registration:
@@ -1223,10 +1221,6 @@ maybe_arguments:
     ;
 
 arguments:
-    OPEN_PAREN term_expression_list CLOSE_PAREN
-    ;
-
-adjective_arguments:
     OPEN_PAREN term_expression_list CLOSE_PAREN
     ;
 
