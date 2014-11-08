@@ -622,8 +622,13 @@ existential_registration:
     CLUSTER adjective_cluster FOR type_expression SEMICOLON correctness_conditions
     ;
 
-adjective_cluster:
+maybe_adjective_cluster:
     %empty
+    | adjective_cluster
+    ;
+
+adjective_cluster:
+    adjective
     | adjective adjective_cluster
     ;
 
@@ -633,7 +638,7 @@ adjective:
     ;
 
 conditional_registration:
-    CLUSTER adjective_cluster RARROW adjective_cluster FOR type_expression SEMICOLON correctness_conditions
+    CLUSTER maybe_adjective_cluster RARROW adjective_cluster FOR type_expression SEMICOLON correctness_conditions
     ;
 
 functorial_registration:
@@ -1096,7 +1101,7 @@ formula_expression:
 atomic_formula_expression:
     OPEN_PAREN predicative_formula CLOSE_PAREN
     | predicate_identifier OPEN_BRACKET maybe_term_expression_list CLOSE_BRACKET
-    | OPEN_PAREN term_expression IS adjective_list CLOSE_PAREN
+    | OPEN_PAREN term_expression IS adjective_cluster CLOSE_PAREN
     | OPEN_PAREN term_expression IS type_expression CLOSE_PAREN
     ;
 
@@ -1114,11 +1119,6 @@ predicative_formula_tail:
 
 predicative_formula_part:
     maybe_does_do_not predicate_symbol term_expression_list
-    ;
-
-adjective_list:
-    adjective
-    | adjective adjective_list
     ;
 
 maybe_does_do_not:
@@ -1170,7 +1170,7 @@ being_or_be:
 
 type_expression:
     radix_type_expression
-    | adjective_list radix_type_expression
+    | adjective_cluster radix_type_expression
     ;
 
 radix_type_expression:
