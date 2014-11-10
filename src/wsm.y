@@ -1199,8 +1199,7 @@ term_expression:
     | functor_identifier OPEN_PAREN maybe_term_expression_list CLOSE_PAREN
     | structure_symbol OPEN_PAREN_HASH maybe_term_expression_list HASH_CLOSE_PAREN
     | variable_identifier
-    | OPEN_BRACE term_expression maybe_postqualifications COLON sentence CLOSE_BRACE
-    | OPEN_PAREN THE SET ALL term_expression maybe_postqualifications CLOSE_PAREN
+    | fraenkel_term
     | NUMERAL
     | OPEN_PAREN term_expression QUA type_expression CLOSE_PAREN
     | OPEN_PAREN THE selector_symbol OF term_expression CLOSE_PAREN
@@ -1209,6 +1208,11 @@ term_expression:
     | private_definition_parameter
     | IT
     | forgetful_functor_term
+    ;
+
+fraenkel_term:
+    OPEN_BRACE term_expression maybe_postqualifications COLON formula_expression CLOSE_BRACE
+    | OPEN_PAREN THE SET ALL term_expression maybe_postqualifications CLOSE_PAREN
     ;
 
 forgetful_functor_term:
