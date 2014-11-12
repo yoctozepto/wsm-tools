@@ -1,7 +1,5 @@
 %{
-#include <string>
-using std::string;
-
+#include "wsm.h"
 #include "dct.h"
 #include "wsm.tab.h"
 %}

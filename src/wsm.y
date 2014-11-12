@@ -1,8 +1,5 @@
 %{
-#include <string>
-
-using std::string;
-
+#include "wsm.h"
 #include "events.h"
 void yyerror(const char *s);
 extern int yylex(void);
@@ -13,6 +10,9 @@ extern int yylineno;
 {
     unsigned long ival;
     string *sval;
+    StructureType *structureType;
+    forward_list<unique_ptr<StructureType>> *structureTypes;
+    StructureDefinition *structureDefinition;
 }
 
 %define parse.error verbose
@@ -158,6 +158,12 @@ extern int yylineno;
 %token <sval> LEFT_FUNCTOR_BRACKET_SYMBOL
 %token <sval> RIGHT_FUNCTOR_BRACKET_SYMBOL
 %token <sval> ARTICLE_NAME
+
+%type <sval> structure_symbol
+%type <structureType> structure_type_expression
+%type <structureTypes> ancestors
+%type <structureTypes> maybe_ancestors_list
+%type <structureDefinition> structure_definition
 
 %%
 document:
@@ -333,17 +339,17 @@ redefinition:
     ;
 
 structure_definition:
-    STRUCT maybe_ancestors_list structure_symbol maybe_over_loci OPEN_PAREN_HASH fields HASH_CLOSE_PAREN SEMICOLON
+    STRUCT maybe_ancestors_list[ancestors] structure_symbol[symbol] maybe_over_loci OPEN_PAREN_HASH fields HASH_CLOSE_PAREN SEMICOLON { $$ = new StructureDefinition($symbol, $ancestors); }
     ;
 
 maybe_ancestors_list:
-    %empty
-    | OPEN_PAREN ancestors CLOSE_PAREN
+    %empty { $$ = NULL; }
+    | OPEN_PAREN ancestors CLOSE_PAREN { $$ = $ancestors; }
     ;
 
 ancestors:
-    structure_type_expression
-    | structure_type_expression COMMA ancestors
+    structure_type_expression[ancestor] { $$ = new forward_list<unique_ptr<StructureType>>(); $$->emplace_front($ancestor); }
+    | structure_type_expression[ancestor] COMMA ancestors[previous_ancestors] { $$ = $previous_ancestors; $$->emplace_front($ancestor); }
     ;
 
 maybe_over_loci:
@@ -1184,8 +1190,8 @@ mode_type_expression:
     ;
 
 structure_type_expression:
-    structure_symbol
-    | OPEN_PAREN structure_symbol OVER term_expression_list CLOSE_PAREN
+    structure_symbol[symbol] { $$ = new StructureType($symbol); }
+    | OPEN_PAREN structure_symbol[symbol] OVER term_expression_list CLOSE_PAREN { $$ = new StructureType($symbol); }
     ;
 
 type_expression_list:
