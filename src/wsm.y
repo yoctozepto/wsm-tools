@@ -1218,7 +1218,7 @@ term_expression:
 
 fraenkel_term:
     OPEN_BRACE term_expression maybe_postqualifications COLON formula_expression CLOSE_BRACE
-    | OPEN_PAREN THE SET ALL term_expression maybe_postqualifications CLOSE_PAREN
+    | OPEN_PAREN THE SET OF ALL term_expression maybe_postqualifications CLOSE_PAREN
     ;
 
 forgetful_functor_term:
